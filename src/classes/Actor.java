@@ -31,7 +31,6 @@ public class Actor implements Comparable<Actor>{
         boolean matches = true;
         for (String word : wordsarray) {
             if (!CareerDescription.contains(word)) {
-                System.out.println(word);
                 matches = false;
                 break;
             }

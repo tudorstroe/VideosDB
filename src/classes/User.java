@@ -8,12 +8,14 @@ public class User {
     private String subscriptionType;
     private Map<String, Integer> history;
     private ArrayList<String> favoriteMovies;
+    private Map<String, Double> ratings;
 
-    public User(String username, String subscriptionType, Map<String, Integer> history, ArrayList<String> favoriteMovies) {
+    public User(String username, String subscriptionType, Map<String, Integer> history, ArrayList<String> favoriteMovies, Map<String, Double> ratings) {
         this.username = username;
         this.subscriptionType = subscriptionType;
         this.history = history;
         this.favoriteMovies = favoriteMovies;
+        this.ratings = ratings;
     }
 
     public String addFavorite(String showname) {
@@ -44,6 +46,7 @@ public class User {
         if (this.history.get(showname)==null) {
             return "error -> " +showname+ " is not seen";
         } else {
+            this.ratings.put(showname, rating);
             return "success -> " +showname+ " was rated with " +rating+ " by " +this.username;
         }
     }
@@ -80,5 +83,11 @@ public class User {
         this.favoriteMovies = favoriteMovies;
     }
 
+    public Map<String, Double> getRating() {
+        return ratings;
+    }
 
+    public void setRating(Map<String, Double> rating) {
+        this.ratings = rating;
+    }
 }
