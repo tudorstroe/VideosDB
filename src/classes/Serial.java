@@ -1,24 +1,36 @@
 package classes;
 
 import entertainment.Season;
-
-import javax.swing.border.TitledBorder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class Serial extends Show {
-    private int numberOfSeasons;
-    private ArrayList<Season> seasons;
+public final class Serial extends Show {
+    private final int numberOfSeasons;
+    private final ArrayList<Season> seasons;
 
-    public Serial(String title, int year, ArrayList<String> cast, ArrayList<String> genres, int numberOfSeasons, ArrayList<Season> seasons) {
+    public Serial(final String title, final int year, final ArrayList<String> cast,
+                  final ArrayList<String> genres, final int numberOfSeasons,
+                  final ArrayList<Season> seasons) {
         super(title, year, cast, genres);
         this.numberOfSeasons = numberOfSeasons;
         this.seasons = seasons;
     }
 
-    public ArrayList<String> getMostViewed_serial_desc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * preia cel mai vizualizat serial in mod descrescator
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getMostViewedSerialDesc(final ArrayList<Serial> serialList,
+                                                             final ArrayList<User> userList,
+                                                             final int n, final String genre,
+                                                             final String year) {
 
         HashMap<String, Integer> serialViews = new HashMap<>();
         ArrayList<Serial> newSerialViews = new ArrayList<Serial>(serialList);
@@ -30,15 +42,17 @@ public class Serial extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (serialList.get(j).getYear() == an &&
-                    serialList.get(j).getGenres().contains(genre)) {
+            if (serialList.get(j).getYear() == an
+                    && serialList.get(j).getGenres().contains(genre)) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getHistory().get(serialList.get(j).getTitle()) != null)
+                    if (userList.get(k).getHistory().get(serialList.get(j).getTitle()) != null) {
                         counter += userList.get(k).getHistory().get(serialList.get(j).getTitle());
+                    }
                 }
-                if (counter != 0)
+                if (counter != 0) {
                     serialViews.put(serialList.get(j).getTitle(), counter);
+                }
                 counter = 0;
             }
         }
@@ -58,7 +72,19 @@ public class Serial extends Show {
         return finalSerials;
     }
 
-    public ArrayList<String> getMostViewed_serial_asc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * preia cel mai vizualizat serial in mod crescator
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getMostViewedSerialAsc(final ArrayList<Serial> serialList,
+                                                            final ArrayList<User> userList,
+                                                            final int n, final String genre,
+                                                            final String year) {
 
         HashMap<String, Integer> serialViews = new HashMap<>();
         ArrayList<Serial> newSerialViews = new ArrayList<Serial>(serialList);
@@ -70,15 +96,17 @@ public class Serial extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (serialList.get(j).getYear() == an &&
-                    serialList.get(j).getGenres().contains(genre)) {
+            if (serialList.get(j).getYear() == an
+                    && serialList.get(j).getGenres().contains(genre)) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getHistory().get(serialList.get(j).getTitle()) != null)
+                    if (userList.get(k).getHistory().get(serialList.get(j).getTitle()) != null) {
                         counter += userList.get(k).getHistory().get(serialList.get(j).getTitle());
+                    }
                 }
-                if (counter != 0)
+                if (counter != 0) {
                     serialViews.put(serialList.get(j).getTitle(), counter);
+                }
                 counter = 0;
             }
         }
@@ -97,12 +125,21 @@ public class Serial extends Show {
         return finalSerials;
     }
 
-    public ArrayList<String> getNLongest_desc(ArrayList<Serial> serialList, int n, String genre, String year) {
+    /**
+     * preia N cele mai lungi filme in mod descrescator, dupa filtre
+     * @param serialList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getNLongestDesc(final ArrayList<Serial> serialList,
+                                                    final int n, final String genre,
+                                                    final String year) {
         HashMap<String, Integer> serialSize = new HashMap<>();
         ArrayList<Serial> newSerialSize = new ArrayList<>(serialList);
-        int counter = 0;
         int an = 0;
-        int size_aux = 0;
+        int sizeAux = 0;
         for (int j = 0; j < serialList.size(); j++) {
 
             if (year != null) {
@@ -111,16 +148,16 @@ public class Serial extends Show {
 
             }
 
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
-                size_aux = 0;
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+                sizeAux = 0;
                 for (int k = 0; k < serialList.get(j).numberOfSeasons; k++) {
 
-                    size_aux += serialList.get(j).getSeasons().get(k).getDuration();
+                    sizeAux += serialList.get(j).getSeasons().get(k).getDuration();
 
                 }
 
-                serialSize.put(serialList.get(j).getTitle(), size_aux);
+                serialSize.put(serialList.get(j).getTitle(), sizeAux);
 
 
             }
@@ -143,12 +180,22 @@ public class Serial extends Show {
 
     }
 
-    public ArrayList<String> getNLongest_asc(ArrayList<Serial> serialList, int n, String genre, String year) {
+    /**
+     * preia N cele mai lungi filme in mod crescator, dupa filtre
+     * @param serialList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getNLongestAsc(final ArrayList<Serial> serialList,
+                                                   final int n, final String genre,
+                                                   final String year) {
         HashMap<String, Integer> serialSize = new HashMap<>();
         ArrayList<Serial> newSerialSize = new ArrayList<>(serialList);
         int counter = 0;
         int an = 0;
-        int size_aux = 0;
+        int sizeAux = 0;
         for (int j = 0; j < serialList.size(); j++) {
 
             if (year != null) {
@@ -157,16 +204,16 @@ public class Serial extends Show {
 
             }
 
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
-                size_aux = 0;
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+                sizeAux = 0;
                 for (int k = 0; k < serialList.get(j).numberOfSeasons; k++) {
 
-                    size_aux += serialList.get(j).getSeasons().get(k).getDuration();
+                    sizeAux += serialList.get(j).getSeasons().get(k).getDuration();
 
                 }
 
-                serialSize.put(serialList.get(j).getTitle(), size_aux);
+                serialSize.put(serialList.get(j).getTitle(), sizeAux);
 
 
             }
@@ -188,7 +235,18 @@ public class Serial extends Show {
 
     }
 
-    public ArrayList<String> getNFavorite_asc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * preia N cele mai adaugate la favorite filme in mod crescator, dupa filtre
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getNFavoriteAsc(final ArrayList<Serial> serialList,
+                                                    final ArrayList<User> userList, final int n,
+                                                    final String genre, final String year) {
         HashMap<String, Integer> serialFavorites = new HashMap<>();
         ArrayList<Serial> newSerialViews = new ArrayList<>(serialList);
         for (int j = 0; j < serialList.size(); j++) {
@@ -199,16 +257,19 @@ public class Serial extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getFavoriteMovies().contains(serialList.get(j).getTitle()) != false)
+                    if (userList.get(k).getFavoriteMovies().contains(serialList.get(j).
+                            getTitle())) {
                         counter += 1;
+                    }
                 }
-                if (counter != 0)
+                if (counter != 0) {
                     serialFavorites.put(serialList.get(j).getTitle(), counter);
-                counter = 0;
+                }
+                    counter = 0;
             }
         }
         newSerialViews.removeIf((mov) -> {
@@ -226,7 +287,19 @@ public class Serial extends Show {
         return finalSerials;
     }
 
-    public ArrayList<String> getNFavorite_desc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * preia N cele mai adaugate la favorite filme in mod descrescator, dupa filtre
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+
+    public ArrayList<String> getNFavoriteDesc(final ArrayList<Serial> serialList,
+                                                     final ArrayList<User> userList, final int n,
+                                                     final String genre, final String year) {
         HashMap<String, Integer> serialFavorites = new HashMap<>();
         ArrayList<Serial> newSerialViews = new ArrayList<>(serialList);
         for (int j = 0; j < serialList.size(); j++) {
@@ -237,15 +310,18 @@ public class Serial extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getFavoriteMovies().contains(serialList.get(j).getTitle()) != false)
+                    if (userList.get(k).getFavoriteMovies().contains(serialList.get(j).
+                            getTitle())) {
                         counter += 1;
+                    }
                 }
-                if (counter != 0)
+                if (counter != 0) {
                     serialFavorites.put(serialList.get(j).getTitle(), counter);
+                }
                 counter = 0;
             }
         }
@@ -265,39 +341,54 @@ public class Serial extends Show {
         return finalSerials;
     }
 
-
-    public ArrayList<String> getBestRating_desc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * prena N cele mai bine rateuite filme, in mod descrescator, dupa filtre
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getBestRatingDesc(final ArrayList<Serial> serialList,
+                                                      final ArrayList<User> userList, final int n,
+                                                      final String genre, final String year) {
 
         HashMap<String, Integer> serialRating = new HashMap<>();
         ArrayList<Serial> newSerialRating = new ArrayList<>(serialList);
         for (int j = 0; j < serialList.size(); j++) {
             int rating = 0;
-            int rating_aux = 0;
+            int ratingAux = 0;
             int an = 0;
-            int count_apparitions = 0;
-            int count_apparitions_aux = 0;
+            int countApparitions = 0;
             if (year != null) {
 
                 an = Integer.parseInt(year);
 
             }
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null && userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()) != null) {
-                        for (int l = 0; l < userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()); l++) {
-                            rating_aux += userList.get(k).getRating().get(serialList.get(j).getSeasons().get(k));
+                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null
+                            && userList.get(k).getRating().get(serialList.get(j).
+                            getNumberOfSeasons()) != null) {
+                        for (int l = 0; l < userList.get(k).getRating().get(serialList.get(j).
+                                getNumberOfSeasons()); l++) {
+                            ratingAux += userList.get(k).getRating().get(serialList.get(j).
+                                    getSeasons().get(k));
                         }
-                        rating_aux = (int) (rating_aux / userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()));
+                        ratingAux = (int) (ratingAux / userList.get(k).getRating().
+                                get(serialList.get(j).getNumberOfSeasons()));
                     }
-                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null)
+                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null) {
                         rating += userList.get(k).getRating().get(serialList.get(j).getTitle());
+                    }
 
-                    count_apparitions++;
+                    countApparitions++;
                 }
                 if (rating != 0) {
-                    rating = rating / count_apparitions;
+                    rating = rating / countApparitions;
                     serialRating.put(serialList.get(j).getTitle(), rating);
                 }
                 rating = 0;
@@ -319,38 +410,55 @@ public class Serial extends Show {
         return finalSerials;
     }
 
-    public ArrayList<String> getBestRating_asc(ArrayList<Serial> serialList, ArrayList<User> userList, int n, String genre, String year) {
+    /**
+     * prena N cele mai bine rateuite filme, in mod crescator, dupa filtre
+     * @param serialList
+     * @param userList
+     * @param n
+     * @param genre
+     * @param year
+     * @return
+     */
+    public ArrayList<String> getBestRatingAsc(final ArrayList<Serial> serialList,
+                                                     final ArrayList<User> userList, final int n,
+                                                     final String genre, final String year) {
 
         HashMap<String, Integer> serialRating = new HashMap<>();
         ArrayList<Serial> newSerialRating = new ArrayList<>(serialList);
         for (int j = 0; j < serialList.size(); j++) {
             int rating = 0;
-            int rating_aux = 0;
+            int ratingAux = 0;
             int an = 0;
-            int count_apparitions = 0;
-            int count_apparitions_aux = 0;
+            int countApparitions = 0;
+
             if (year != null) {
 
                 an = Integer.parseInt(year);
 
             }
-            if (((serialList.get(j).getYear() == an) || (year == null)) &&
-                    ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
+            if (((serialList.get(j).getYear() == an) || (year == null))
+                    && ((serialList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
-                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null && userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()) != null) {
-                        for (int l = 0; l < userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()); l++) {
-                            rating_aux += userList.get(k).getRating().get(serialList.get(j).getSeasons().get(k));
+                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null
+                            && userList.get(k).getRating().get(serialList.get(j).
+                            getNumberOfSeasons()) != null) {
+                        for (int l = 0; l < userList.get(k).getRating().get(serialList.
+                                get(j).getNumberOfSeasons()); l++) {
+                            ratingAux += userList.get(k).getRating().get(serialList.get(j).
+                                    getSeasons().get(k));
                         }
-                        rating_aux = (int) (rating_aux / userList.get(k).getRating().get(serialList.get(j).getNumberOfSeasons()));
+                        ratingAux = (int) (ratingAux / userList.get(k).getRating().get(serialList.
+                                get(j).getNumberOfSeasons()));
                     }
-                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null)
+                    if (userList.get(k).getRating().get(serialList.get(j).getTitle()) != null) {
                         rating += userList.get(k).getRating().get(serialList.get(j).getTitle());
+                    }
 
-                    count_apparitions++;
+                    countApparitions++;
                 }
                 if (rating != 0) {
-                    rating = rating / count_apparitions;
+                    rating = rating / countApparitions;
                     serialRating.put(serialList.get(j).getTitle(), rating);
                 }
                 rating = 0;
@@ -375,19 +483,17 @@ public class Serial extends Show {
         return numberOfSeasons;
     }
 
-    public void setNumberOfSeasons(int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(ArrayList<Season> seasons) {
-        this.seasons = seasons;
-    }
-
-    public static Comparator<Serial> sortViewSerials(HashMap<String, Integer> serialSize) {
+    /**
+     * sorteaza serialele
+     * @param serialSize
+     * @return
+     */
+    public Comparator<Serial> sortViewSerials(final // using lambda operator
+                                                           HashMap<String, Integer> serialSize) {
         Comparator comp = (Comparator<Serial>) (movi, movf) -> {
             int criteriu = serialSize.get(movi.getTitle()) - serialSize.get(movf.getTitle());
             if (criteriu == 0) {

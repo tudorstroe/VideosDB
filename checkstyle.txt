@@ -1,0 +1,4 @@
+Starting audit...
+[ERROR] C:\Users\Tudor\Documents\POO\Tema-POO-2020\.\src\main\Main.java:77:5: Method length is 498 lines (max allowed is 150). [MethodLength]
+Audit done.
+Checkstyle ends with 1 errors.

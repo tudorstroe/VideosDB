@@ -3,47 +3,49 @@ package classes;
 import java.util.ArrayList;
 
 public class Show {
-    private String title;
-    private int year;
-    private ArrayList<String> cast;
-    private ArrayList<String> genres;
+    private final String title;
+    private final int year;
+    private final ArrayList<String> cast;
+    private final ArrayList<String> genres;
 
-    public Show(String title, int year, ArrayList<String> cast, ArrayList<String> genres) {
+    public Show(final String title, final int year, final ArrayList<String> cast,
+                final ArrayList<String> genres) {
         this.title = title;
         this.year = year;
         this.cast = cast;
         this.genres = genres;
     }
 
+    /**
+     *
+     * @return it returns Title
+     */
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    /**
+     *
+     * @return it returns Year
+     */
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
+    /**
+     *
+     * @return it returns Cast
+     */
     public ArrayList<String> getCast() {
         return cast;
     }
 
-    public void setCast(ArrayList<String> cast) {
-        this.cast = cast;
-    }
-
+    /**
+     *
+     * @return it returns Genres
+     */
     public ArrayList<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
-        this.genres = genres;
-    }
 }

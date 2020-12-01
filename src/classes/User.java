@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
-    private String username;
-    private String subscriptionType;
-    private Map<String, Integer> history;
-    private ArrayList<String> favoriteMovies;
-    private Map<String, Double> ratings;
+public final class User {
+    private final String username;
+    private final String subscriptionType;
+    private final Map<String, Integer> history;
+    private final ArrayList<String> favoriteMovies;
+    private final Map<String, Double> ratings;
 
-    public User(String username, String subscriptionType, Map<String, Integer> history, ArrayList<String> favoriteMovies, Map<String, Double> ratings) {
+    public User(final String username, final String subscriptionType,
+                final Map<String, Integer> history, final ArrayList<String> favoriteMovies,
+                final Map<String, Double> ratings) {
         this.username = username;
         this.subscriptionType = subscriptionType;
         this.history = history;
@@ -21,13 +23,18 @@ public class User {
 
     public User() {
         this.username = "";
-        this.subscriptionType =  "";
+        this.subscriptionType = "";
         this.history = new HashMap<String, Integer>();
         this.favoriteMovies = new ArrayList<String>();
         this.ratings = new HashMap<String, Double>();
     }
 
-    public String addFavorite(String showname) {
+    /**
+     * adauga la favorite un show
+     * @param showname
+     * @return
+     */
+    public String addFavorite(final String showname) {
         if (this.history.get(showname) == null) {
             return "error -> " + showname + " is not seen";
 
@@ -42,16 +49,29 @@ public class User {
         }
     }
 
-    public String addViewed(String showname) {
+    /**
+     * adauga la vizualizate un serial
+     * @param showname
+     * @return
+     */
+    public String addViewed(final String showname) {
         if (this.history.get(showname) == null) {
             this.history.put(showname, 1);
         } else {
-            this.history.replace(showname, this.history.get(showname), this.history.get(showname) + 1);
+            this.history.replace(showname, this.history.get(showname),
+                    this.history.get(showname) + 1);
         }
-        return "success -> " + showname + " was viewed with total views of " + this.history.get(showname);
+        return "success -> " + showname + " was viewed with total views of "
+                + this.history.get(showname);
     }
 
-    public String addRating(String showname, double rating) {
+    /**
+     * adauga un rating pt un user la un anume show
+     * @param showname
+     * @param rating
+     * @return
+     */
+    public String addRating(final String showname, final double rating) {
         if (this.history.get(showname) == null) {
             return "error -> " + showname + " is not seen";
         } else {
@@ -60,15 +80,24 @@ public class User {
         }
     }
 
-    public String standardRec(String username, ArrayList<Movie> movies, ArrayList<User> userList) {
+    /**
+     * recomandarea standard.
+     * @param usernameF
+     * @param movies
+     * @param userList
+     * @return
+     */
+    public String standardRec(final String usernameF, final ArrayList<Movie> movies,
+                                    final ArrayList<User> userList) {
         User user = new User();
-        for (int i=0; i<userList.size(); i++) {
-            if(userList.get(i).getUsername().equals(username))
-                user=userList.get(i);
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getUsername().equals(usernameF)) {
+                user = userList.get(i);
+            }
 
         }
-        for (int i=0; i<movies.size(); i++) {
-            if(user.history.get(movies.get(i).getTitle()) == null) {
+        for (int i = 0; i < movies.size(); i++) {
+            if (user.history.get(movies.get(i).getTitle()) == null) {
                 return movies.get(i).getTitle();
             }
         }
@@ -79,39 +108,25 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getSubscriptionType() {
         return subscriptionType;
     }
 
-    public void setSubscriptionType(String subscriptionType) {
-        this.subscriptionType = subscriptionType;
-    }
 
     public Map<String, Integer> getHistory() {
         return history;
     }
 
-    public void setHistory(Map<String, Integer> history) {
-        this.history = history;
-    }
 
     public ArrayList<String> getFavoriteMovies() {
         return favoriteMovies;
     }
 
-    public void setFavoriteMovies(ArrayList<String> favoriteMovies) {
-        this.favoriteMovies = favoriteMovies;
-    }
 
     public Map<String, Double> getRating() {
         return ratings;
     }
 
-    public void setRating(Map<String, Double> rating) {
-        this.ratings = rating;
-    }
 }
+
