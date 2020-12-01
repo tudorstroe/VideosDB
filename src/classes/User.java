@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class User {
@@ -18,37 +19,60 @@ public class User {
         this.ratings = ratings;
     }
 
+    public User() {
+        this.username = "";
+        this.subscriptionType =  "";
+        this.history = new HashMap<String, Integer>();
+        this.favoriteMovies = new ArrayList<String>();
+        this.ratings = new HashMap<String, Double>();
+    }
+
     public String addFavorite(String showname) {
-        if (this.history.get(showname)==null) {
-            return "error -> " +showname+ " is not seen";
+        if (this.history.get(showname) == null) {
+            return "error -> " + showname + " is not seen";
 
         } else {
-            for(int i=0; i<this.favoriteMovies.size(); i++) {
+            for (int i = 0; i < this.favoriteMovies.size(); i++) {
                 if (this.favoriteMovies.get(i).equals(showname)) {
-                    return "error -> " +showname+ " is already in favourite list";
+                    return "error -> " + showname + " is already in favourite list";
                 }
             }
             this.favoriteMovies.add(showname);
-            return "success -> " +showname+ " was added as favourite";
+            return "success -> " + showname + " was added as favourite";
         }
     }
 
     public String addViewed(String showname) {
-        if (this.history.get(showname)==null) {
+        if (this.history.get(showname) == null) {
             this.history.put(showname, 1);
         } else {
-            this.history.replace(showname, this.history.get(showname), this.history.get(showname)+1);
+            this.history.replace(showname, this.history.get(showname), this.history.get(showname) + 1);
         }
-        return "success -> " +showname+ " was viewed with total views of " + this.history.get(showname);
+        return "success -> " + showname + " was viewed with total views of " + this.history.get(showname);
     }
 
     public String addRating(String showname, double rating) {
-        if (this.history.get(showname)==null) {
-            return "error -> " +showname+ " is not seen";
+        if (this.history.get(showname) == null) {
+            return "error -> " + showname + " is not seen";
         } else {
             this.ratings.put(showname, rating);
-            return "success -> " +showname+ " was rated with " +rating+ " by " +this.username;
+            return "success -> " + showname + " was rated with " + rating + " by " + this.username;
         }
+    }
+
+    public String standardRec(String username, ArrayList<Movie> movies, ArrayList<User> userList) {
+        User user = new User();
+        for (int i=0; i<userList.size(); i++) {
+            if(userList.get(i).getUsername().equals(username))
+                user=userList.get(i);
+
+        }
+        for (int i=0; i<movies.size(); i++) {
+            if(user.history.get(movies.get(i).getTitle()) == null) {
+                return movies.get(i).getTitle();
+            }
+        }
+        return "";
     }
 
     public String getUsername() {

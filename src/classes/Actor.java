@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Actor implements Comparable<Actor>{
+public class Actor implements Comparable<Actor> {
     private String name;
     private String careerDescription;
     private ArrayList<String> filmography;
@@ -22,9 +22,9 @@ public class Actor implements Comparable<Actor>{
     String auxiliar = new String();
 
     public String getFilterDescription(String CareerDescription, List<String> words) {
-        ArrayList<String> wordsarray= new ArrayList<String>();
+        ArrayList<String> wordsarray = new ArrayList<String>();
 
-        for (int i=0; i<words.size(); i++) {
+        for (int i = 0; i < words.size(); i++) {
             wordsarray.add(words.get(i));
         }
         CareerDescription = CareerDescription.toLowerCase();
@@ -36,7 +36,7 @@ public class Actor implements Comparable<Actor>{
             }
 
         }
-        if (matches==true)
+        if (matches == true)
             return this.getName();
         else
             return "";

@@ -1,5 +1,6 @@
 package main;
 // single_query_most_viewed_movie.json
+
 import checker.Checkstyle;
 import checker.Checker;
 import classes.Actor;
@@ -9,6 +10,7 @@ import classes.User;
 import common.Constants;
 import fileio.*;
 import org.json.simple.JSONArray;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -24,10 +26,12 @@ public final class Main {
     /**
      * for coding style
      */
-    private Main() {}
+    private Main() {
+    }
 
     /**
      * Call the main checker and the coding style checker
+     *
      * @param args from command line
      * @throws IOException in case of exceptions to reading / writing
      */
@@ -43,7 +47,7 @@ public final class Main {
         Checker checker = new Checker();
         checker.deleteFiles(outputDirectory.listFiles());
 
-        for (File file: Objects.requireNonNull(directory.listFiles())) {
+        for (File file : Objects.requireNonNull(directory.listFiles())) {
 
             String filepath = Constants.OUT_PATH + file.getName();
             File out = new File(filepath);
@@ -71,36 +75,42 @@ public final class Main {
         Writer fileWriter = new Writer(filePath2);
         JSONArray arrayResult = new JSONArray();
         //TODO add here the entry point to your implementation
-        List < String > spacewordz = new ArrayList < String > ();
-        HashMap < String, Double> ratings = new HashMap <String, Double> ();
+        List<String> spacewordz = new ArrayList<String>();
+        HashMap<String, Double> ratings = new HashMap<String, Double>();
         int stop = 0;
 
         String result = new String();
-        ArrayList < User > userList = new ArrayList < > ();
-        for (UserInputData userInputData: input.getUsers()) {
+        ArrayList<User> userList = new ArrayList<>();
+        for (UserInputData userInputData : input.getUsers()) {
             User user = new User(userInputData.getUsername(), userInputData.getSubscriptionType(), userInputData.getHistory(), userInputData.getFavoriteMovies(), ratings);
             userList.add(user);
         }
 
-        ArrayList < Actor > actorList = new ArrayList < > ();
-        for (ActorInputData actorInputData: input.getActors()) {
+        ArrayList<Actor> actorList = new ArrayList<>();
+        for (ActorInputData actorInputData : input.getActors()) {
             Actor actor = new Actor(actorInputData.getName(), actorInputData.getCareerDescription(), actorInputData.getFilmography(), actorInputData.getAwards());
             actorList.add(actor);
         }
 
-        ArrayList < Movie > movieList = new ArrayList < > ();
-        for (MovieInputData movieInputData: input.getMovies()) {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        for (MovieInputData movieInputData : input.getMovies()) {
             Movie movie = new Movie(movieInputData.getTitle(), movieInputData.getYear(), movieInputData.getCast(), movieInputData.getGenres(), movieInputData.getDuration());
             movieList.add(movie);
         }
 
-        ArrayList <Serial> serialList =  new ArrayList<>();
-        for (SerialInputData serialInputData: input.getSerials()) {
+        ArrayList<Serial> serialList = new ArrayList<>();
+        for (SerialInputData serialInputData : input.getSerials()) {
             Serial serial = new Serial(serialInputData.getTitle(), serialInputData.getYear(), serialInputData.getCast(), serialInputData.getGenres(), serialInputData.getNumberSeason(), serialInputData.getSeasons());
             serialList.add(serial);
         }
 
-        HashMap < String, Integer > movieViews = new HashMap < > ();
+        ArrayList<String> usernames = new ArrayList<>();
+        for (UserInputData userInputData : input.getUsers()) {
+            String user = userInputData.getUsername();
+            usernames.add(user);
+        }
+
+        HashMap<String, Integer> movieViews = new HashMap<>();
 
         for (int i = 0; i < input.getCommands().size(); i++) {
             if (input.getCommands().get(i).getActionType().equals(Constants.COMMAND)) {
@@ -136,7 +146,7 @@ public final class Main {
                     if (input.getCommands().get(i).getCriteria().equals(Constants.FILTER_DESCRIPTIONS)) {
 
                         if (stop == 0) {
-                            List < String > wordz = input.getCommands().get(i).getFilters().get(2);
+                            List<String> wordz = input.getCommands().get(i).getFilters().get(2);
                             String auxiliar = new String();
                             for (int k = 0; k < wordz.size(); k++) {
                                 auxiliar = wordz.get(k);
@@ -173,19 +183,18 @@ public final class Main {
                 if (input.getCommands().get(i).getObjectType().equals(Constants.MOVIES)) {
 
 
-
                     if (input.getCommands().get(i).getCriteria().equals((Constants.MOST_VIEWED))) {
 
-                        ArrayList < Movie > newMovieViews = new ArrayList < > (movieList);
+                        ArrayList<Movie> newMovieViews = new ArrayList<>(movieList);
 
                         if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getMostViewed_desc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getMostViewed_desc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
 
                         if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getMostViewed_asc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getMostViewed_asc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
 
 
@@ -193,15 +202,15 @@ public final class Main {
 
                     if (input.getCommands().get(i).getCriteria().equals((Constants.LONGEST))) {
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNLongest_asc(movieList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNLongest_asc(movieList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
 
                         }
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNLongest_desc(movieList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNLongest_desc(movieList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
 
 
                         }
@@ -210,26 +219,26 @@ public final class Main {
 
                     if (input.getCommands().get(i).getCriteria().equals(Constants.RATINGS)) {
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getBestRating_desc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getBestRating_desc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getBestRating_asc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getBestRating_asc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
 
                     }
 
                     if (input.getCommands().get(i).getCriteria().equals(Constants.FAVORITE)) {
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
 
                             arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNFavorite_asc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
 
-                        if(input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
+                        if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
                             arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + movieList.get(0).getNFavorite_desc(movieList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
                         }
@@ -241,30 +250,30 @@ public final class Main {
 
                         if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
-                            if(serialList.size()!=0)
+                            if (serialList.size() != 0)
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getMostViewed_serial_desc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getMostViewed_serial_desc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
 
                             else
 
-                            arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []" )); // daca seriallist nu are elemente, rezultatul este null
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
 
                         }
 
                         if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
 
-                            if(serialList.size()!=0)
+                            if (serialList.size() != 0)
 
-                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getMostViewed_serial_asc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString() ));
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getMostViewed_serial_asc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
 
                             else
 
-                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []" )); // daca seriallist nu are elemente, rezultatul este null
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
 
                         }
                     }
 
-                    if(input.getCommands().get(i).getCriteria().equals(Constants.LONGEST)) {
+                    if (input.getCommands().get(i).getCriteria().equals(Constants.LONGEST)) {
                         if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
 
                             if (serialList.size() != 0)
@@ -285,11 +294,11 @@ public final class Main {
                             else
 
                                 arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
-                    }
+                        }
 
                     }
 
-                    if(input.getCommands().get(i).getCriteria().equals(Constants.FAVORITE)) {
+                    if (input.getCommands().get(i).getCriteria().equals(Constants.FAVORITE)) {
                         if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
                             if (serialList.size() != 0)
                                 arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getNFavorite_asc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
@@ -306,11 +315,87 @@ public final class Main {
                                 arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
                         }
 
-
                     }
 
+                    if (input.getCommands().get(i).getCriteria().equals(Constants.RATINGS)) {
+
+                        if (input.getCommands().get(i).getSortType().equals(Constants.DESC)) {
+                            if (serialList.size() != 0)
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getBestRating_desc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
+
+                            else
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
+
+                        }
+
+                        if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
+                            if (serialList.size() != 0)
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: " + serialList.get(0).getBestRating_asc(serialList, userList, input.getCommands().get(i).getNumber(), input.getCommands().get(i).getFilters().get(1).get(0), input.getCommands().get(i).getFilters().get(0).get(0)).toString()));
+
+                            else
+                                arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "Query result: []")); // daca seriallist nu are elemente, rezultatul este null
+
+                        }
+
+                    }
                 }
+
+                if (input.getCommands().get(i).getObjectType().equals(Constants.USERS))
+
+                    if (input.getCommands().get(i).getCriteria().equals(Constants.NUM_RATINGS)) {
+
+                        if (input.getCommands().get(i).getSortType().equals(Constants.ASC)) {
+                            if (userList.size() != 0)
+                                arrayResult.add((fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "todo")));
+                        }
+                    }
             }
+
+
+            if (input.getCommands().get(i).getActionType().equals(Constants.RECOMMENDATION)) {
+                User user = new User();
+                for(int l=0; l<userList.size(); l++) {
+                    if(userList.get(l).getUsername().equals(input.getCommands().get(i).getUsername()))
+                        user=userList.get(l);
+                }
+
+                    if (input.getCommands().get(i).getType().equals((Constants.STANDARD))) {
+                        arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "StandardRecommendation result: " + userList.get(0).standardRec(input.getCommands().get(i).getUsername(), movieList, userList)));
+                    }
+                    if (input.getCommands().get(i).getType().equals((Constants.BEST_UNSEEN))) {
+                        arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "BestRatedUnseenRecommendation result: " + userList.get(0).standardRec(input.getCommands().get(i).getUsername(), movieList, userList)));
+                    }
+                    if (input.getCommands().get(i).getType().equals((Constants.POPULAR))) {
+
+                        if(!user.getSubscriptionType().equals(Constants.PREMIUM)) {
+                            arrayResult.add((fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "PopularRecommendation cannot be applied!")));
+                        } else
+
+                        arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "PopularRecommendation result: " + userList.get(0).standardRec(input.getCommands().get(i).getUsername(), movieList, userList)));
+                    }
+                    if (input.getCommands().get(i).getType().equals((Constants.FAVORITE))) {
+
+                        if(!user.getSubscriptionType().equals(Constants.PREMIUM)) {
+                            arrayResult.add((fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "FavoriteRecommendation cannot be applied!")));
+                        } else
+
+                        arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "FavoriteRecommendation result: " + userList.get(0).standardRec(input.getCommands().get(i).getUsername(), movieList, userList)));
+                    }
+                    if (input.getCommands().get(i).getType().equals((Constants.SEARCH))) {
+
+                        if(!user.getSubscriptionType().equals(Constants.PREMIUM)) {
+                            arrayResult.add((fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "SearchRecommendation cannot be applied!")));
+                        } else
+
+                        arrayResult.add(fileWriter.writeFile(input.getCommands().get(i).getActionId(), null, "SearchRecommendation result: " + userList.get(0).standardRec(input.getCommands().get(i).getUsername(), movieList, userList)));
+                    }
+
+
+
+
+            }
+
+
         }
 
         fileWriter.closeJSON(arrayResult);

@@ -9,14 +9,14 @@ import java.util.HashMap;
 public class Movie extends Show {
     private int duration;
 
-    public Movie(String title, int year, ArrayList<String> cast, ArrayList<String> genres,  int duration) {
+    public Movie(String title, int year, ArrayList<String> cast, ArrayList<String> genres, int duration) {
         super(title, year, cast, genres);
         this.duration = duration;
     }
 
-    public ArrayList<String> getNLongest_asc(ArrayList<Movie> movieList, int n, String genre, String year ) {
-        HashMap< String, Integer > movieSize = new HashMap < > ();
-        ArrayList < Movie > newMovieSize = new ArrayList < > (movieList);
+    public ArrayList<String> getNLongest_asc(ArrayList<Movie> movieList, int n, String genre, String year) {
+        HashMap<String, Integer> movieSize = new HashMap<>();
+        ArrayList<Movie> newMovieSize = new ArrayList<>(movieList);
         int counter = 0;
         int an = 0;
 
@@ -28,10 +28,10 @@ public class Movie extends Show {
 
             }
 
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
-                    movieSize.put(movieList.get(j).getTitle(), movieList.get(j).getDuration());
+                movieSize.put(movieList.get(j).getTitle(), movieList.get(j).getDuration());
 
             }
 
@@ -52,9 +52,9 @@ public class Movie extends Show {
 
     }
 
-    public ArrayList<String> getNLongest_desc(ArrayList<Movie> movieList, int n, String genre, String year ) {
-        HashMap< String, Integer > movieSize = new HashMap < > ();
-        ArrayList < Movie > newMovieSize = new ArrayList < > (movieList);
+    public ArrayList<String> getNLongest_desc(ArrayList<Movie> movieList, int n, String genre, String year) {
+        HashMap<String, Integer> movieSize = new HashMap<>();
+        ArrayList<Movie> newMovieSize = new ArrayList<>(movieList);
         int counter = 0;
         int an = 0;
 
@@ -66,8 +66,8 @@ public class Movie extends Show {
 
             }
 
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 movieSize.put(movieList.get(j).getTitle(), movieList.get(j).getDuration());
 
@@ -91,10 +91,10 @@ public class Movie extends Show {
 
     }
 
-    public ArrayList<String> getMostViewed_desc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year ) {
+    public ArrayList<String> getMostViewed_desc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
 
-        HashMap< String, Integer > movieViews = new HashMap < > ();
-        ArrayList < Movie > newMovieViews = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieViews = new HashMap<>();
+        ArrayList<Movie> newMovieViews = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int counter = 0;
             int an = 0;
@@ -103,8 +103,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getHistory().get(movieList.get(j).getTitle()) != null)
@@ -131,10 +131,10 @@ public class Movie extends Show {
         return finalMovies;
     }
 
-    public ArrayList<String> getMostViewed_asc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year ) {
+    public ArrayList<String> getMostViewed_asc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
 
-        HashMap< String, Integer > movieViews = new HashMap < > ();
-        ArrayList < Movie > newMovieViews = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieViews = new HashMap<>();
+        ArrayList<Movie> newMovieViews = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int counter = 0;
             int an = 0;
@@ -143,8 +143,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if ((movieList.get(j).getYear() == an || (year==null))&&
-                    (movieList.get(j).getGenres().contains(genre) || genre==null)) {
+            if ((movieList.get(j).getYear() == an || (year == null)) &&
+                    (movieList.get(j).getGenres().contains(genre) || genre == null)) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getHistory().get(movieList.get(j).getTitle()) != null)
@@ -171,8 +171,8 @@ public class Movie extends Show {
     }
 
     public ArrayList<String> getNFavorite_asc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
-        HashMap< String, Integer > movieFavorites = new HashMap < > ();
-        ArrayList < Movie > newMovieViews = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieFavorites = new HashMap<>();
+        ArrayList<Movie> newMovieViews = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int counter = 0;
             int an = 0;
@@ -181,8 +181,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getFavoriteMovies().contains(movieList.get(j).getTitle()) != false)
@@ -209,8 +209,8 @@ public class Movie extends Show {
     }
 
     public ArrayList<String> getNFavorite_desc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
-        HashMap< String, Integer > movieFavorites = new HashMap < > ();
-        ArrayList < Movie > newMovieViews = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieFavorites = new HashMap<>();
+        ArrayList<Movie> newMovieViews = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int counter = 0;
             int an = 0;
@@ -219,8 +219,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getFavoriteMovies().contains(movieList.get(j).getTitle()) != false)
@@ -248,10 +248,10 @@ public class Movie extends Show {
     }
 
 
-    public ArrayList<String> getBestRating_desc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year ) {
+    public ArrayList<String> getBestRating_desc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
 
-        HashMap< String, Integer > movieRating = new HashMap < > ();
-        ArrayList < Movie > newMovieRating = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieRating = new HashMap<>();
+        ArrayList<Movie> newMovieRating = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int rating = 0;
             int an = 0;
@@ -261,8 +261,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if  (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getRating().get(movieList.get(j).getTitle()) != null)
@@ -293,10 +293,10 @@ public class Movie extends Show {
     }
 
 
-    public ArrayList<String> getBestRating_asc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year ) {
+    public ArrayList<String> getBestRating_asc(ArrayList<Movie> movieList, ArrayList<User> userList, int n, String genre, String year) {
 
-        HashMap< String, Integer > movieRating = new HashMap < > ();
-        ArrayList < Movie > newMovieRating = new ArrayList < > (movieList);
+        HashMap<String, Integer> movieRating = new HashMap<>();
+        ArrayList<Movie> newMovieRating = new ArrayList<>(movieList);
         for (int j = 0; j < movieList.size(); j++) {
             int rating = 0;
             int an = 0;
@@ -306,8 +306,8 @@ public class Movie extends Show {
                 an = Integer.parseInt(year);
 
             }
-            if (((movieList.get(j).getYear() == an) || (year==null)) &&
-                    ((movieList.get(j).getGenres().contains(genre)) || (genre==null))) {
+            if (((movieList.get(j).getYear() == an) || (year == null)) &&
+                    ((movieList.get(j).getGenres().contains(genre)) || (genre == null))) {
 
                 for (int k = 0; k < userList.size(); k++) {
                     if (userList.get(k).getRating().get(movieList.get(j).getTitle()) != null)
@@ -329,7 +329,7 @@ public class Movie extends Show {
         ArrayList<String> finalMovies = new ArrayList<>();
         for (int k = 0; k < n && k < newMovieRating.size(); k++) {
 
-             finalMovies.add(newMovieRating.get(k).getTitle());
+            finalMovies.add(newMovieRating.get(k).getTitle());
 
         }
 
@@ -345,8 +345,8 @@ public class Movie extends Show {
         this.duration = duration;
     }
 
-    public static Comparator< Movie > sortLongestMovies(HashMap < String, Integer > movieSize) {
-        Comparator comp = (Comparator < Movie > )(movi, movf) -> {
+    public static Comparator<Movie> sortLongestMovies(HashMap<String, Integer> movieSize) {
+        Comparator comp = (Comparator<Movie>) (movi, movf) -> {
             int criteriu = movieSize.get(movi.getTitle()) - movieSize.get(movf.getTitle());
             if (criteriu == 0) {
                 return movi.getTitle().compareTo(movf.getTitle());
@@ -356,8 +356,8 @@ public class Movie extends Show {
         return comp;
     }
 
-    public static Comparator< Movie > sortViewMovies(HashMap < String, Integer > movieSize) {
-        Comparator comp = (Comparator < Movie > )(movi, movf) -> {
+    public static Comparator<Movie> sortViewMovies(HashMap<String, Integer> movieSize) {
+        Comparator comp = (Comparator<Movie>) (movi, movf) -> {
             int criteriu = movieSize.get(movi.getTitle()) - movieSize.get(movf.getTitle());
             if (criteriu == 0) {
                 return movi.getTitle().compareTo(movf.getTitle());
