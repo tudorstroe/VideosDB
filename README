@@ -1,0 +1,24 @@
+# VideosDB
+
+VideosDB is a Java application that functions as a database for managing videos, including movies and TV series, along with related information such as actors and genres. The application allows users to perform various operations like adding, updating, deleting, and searching for records.
+
+## Features
+
+- **Movies and TV Series Management**
+  - Add, update, delete, and view movies and TV series.
+  - Track details like title, release year, genre, and rating.
+
+- **Actors Management**
+  - Add, update, delete, and view actors.
+  - Link actors to movies and TV series.
+
+- **Search and Filter**
+  - Search for movies or TV series by title, genre, or release year.
+  - List all movies or TV series featuring a specific actor.
+
+- **Relational Data**
+  - Automatically associate actors with the movies or TV series they star in.
+  - Handle many-to-many relationships between actors and videos.
+
+- **Sample Data**
+  - Includes sample movies, TV series, and actors for demonstration purposes.
